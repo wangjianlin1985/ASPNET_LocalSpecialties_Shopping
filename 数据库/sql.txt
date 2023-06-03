@@ -1,0 +1,209 @@
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[CusUsers]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)drop table [dbo].[CusUsers]
+GO
+
+CREATE TABLE [dbo].[CusUsers] (
+	[customerid] [int] IDENTITY (1, 1) NOT NULL PRIMARY KEY ,
+	[Customername] [nvarchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[customerpwd] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Realname] [nvarchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[CustomerSfz] [nvarchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[address] [nvarchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[telphone] [varchar] (30) COLLATE Chinese_PRC_CI_AS NULL ,
+	[IsCusAdmin] [int] NULL ,
+	[CusType] [int] NULL 
+) ON [PRIMARY]
+insert into CusUsers(Customername,customerpwd,IsCusAdmin,CusType) values ('admin','21232F297A57A5A743894A0E4A801FC3',0,0)
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductBigClass]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductBigClass]
+GO
+
+CREATE TABLE [dbo].[ProductBigClass] (
+	[bigClassId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[bigClassName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductSmallClass]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductSmallClass]
+GO
+
+CREATE TABLE [dbo].[ProductSmallClass] (
+	[smallClassId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[bigClassObj] int NOT NULL ,
+	[smallClassName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductInfo]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductInfo]
+GO
+
+CREATE TABLE [dbo].[ProductInfo] (
+	[productId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[classObj] int NOT NULL ,
+	[productName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[price] [float] NOT NULL ,
+	[totalCount] [int] NOT NULL ,
+	[outCount] [int] NOT NULL ,
+	[startTime] [datetime] NULL , 
+	[endTime] [datetime] NULL , 
+	[productImage] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[productIntroduce] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[UserInfo]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[UserInfo]
+GO
+
+CREATE TABLE [dbo].[UserInfo] (
+	[username] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL PRIMARY KEY ,
+	[password] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[realName] [varchar] (10) COLLATE Chinese_PRC_CI_AS NULL ,
+	[city] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[cardTypeObj] int NOT NULL ,
+	[cardNumber] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[telephone] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[emailAddress] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[userPhoto] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[address] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[postcode] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[CardType]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[CardType]
+GO
+
+CREATE TABLE [dbo].[CardType] (
+	[cardTypeId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[cardTypeName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[OrderInfo]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[OrderInfo]
+GO
+
+CREATE TABLE [dbo].[OrderInfo] (
+	[orderNo] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL PRIMARY KEY ,
+	[realName] [varchar] (10) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[telephone] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[address] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[postcode] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[orderTime] [datetime] NULL , 
+	[orderState] int NOT NULL ,
+	[payWay] int NOT NULL ,
+	[trasportWay] int NOT NULL ,
+	[username] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PayWay]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PayWay]
+GO
+
+CREATE TABLE [dbo].[PayWay] (
+	[payWayId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[payWayName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[TransportWay]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[TransportWay]
+GO
+
+CREATE TABLE [dbo].[TransportWay] (
+	[transportId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[transportName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[OrderDetail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[OrderDetail]
+GO
+
+CREATE TABLE [dbo].[OrderDetail] (
+	[detailId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[orderNo] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[userObj] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[productObj] int NOT NULL ,
+	[count] [int] NOT NULL ,
+	[price] [float] NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[OrderState]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[OrderState]
+GO
+
+CREATE TABLE [dbo].[OrderState] (
+	[stateId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[stateName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductCart]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductCart]
+GO
+
+CREATE TABLE [dbo].[ProductCart] (
+	[cartId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[username] [varchar] (20) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[productId] int NOT NULL ,
+	[price] [float] NOT NULL ,
+	[count] [int] NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[NewInfo]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[NewInfo]
+GO
+
+CREATE TABLE [dbo].[NewInfo] (
+	[newsId] [int] IDENTITY (1, 1) NOT NULL  PRIMARY KEY,
+	[newTitle] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[newBody] [varchar] (500) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[publishDate] [datetime] NULL ,
+) ON [PRIMARY]
+GO
+
+
+
+ALTER TABLE ProductSmallClass ADD FOREIGN KEY (bigClassObj) REFERENCES ProductBigClass(bigClassId)
+ALTER TABLE ProductInfo ADD FOREIGN KEY (classObj) REFERENCES ProductSmallClass(smallClassId)
+ALTER TABLE UserInfo ADD FOREIGN KEY (cardTypeObj) REFERENCES CardType(cardTypeId)
+ALTER TABLE OrderInfo ADD FOREIGN KEY (orderState) REFERENCES OrderState(stateId)
+ALTER TABLE OrderInfo ADD FOREIGN KEY (payWay) REFERENCES PayWay(payWayId)
+ALTER TABLE OrderInfo ADD FOREIGN KEY (trasportWay) REFERENCES TransportWay(transportId)
+ALTER TABLE OrderDetail ADD FOREIGN KEY (orderNo) REFERENCES OrderInfo(orderNo)
+ALTER TABLE OrderDetail ADD FOREIGN KEY (userObj) REFERENCES UserInfo(username)
+ALTER TABLE OrderDetail ADD FOREIGN KEY (productObj) REFERENCES ProductInfo(productId)
+ALTER TABLE ProductCart ADD FOREIGN KEY (username) REFERENCES UserInfo(username)
+ALTER TABLE ProductCart ADD FOREIGN KEY (productId) REFERENCES ProductInfo(productId)
